@@ -1,18 +1,19 @@
 package com.thoughtbot.expandablerecyclerview.sample.expand;
 
-import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.Button;
-import com.thoughtbot.expandablerecyclerview.sample.R;
-
 import static com.thoughtbot.expandablerecyclerview.sample.GenreDataFactory.makeClassicGenre;
 import static com.thoughtbot.expandablerecyclerview.sample.GenreDataFactory.makeGenres;
+
+import android.os.Bundle;
+import android.widget.Button;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.thoughtbot.expandablerecyclerview.sample.R;
 
 public class ExpandActivity extends AppCompatActivity {
 
@@ -22,6 +23,7 @@ public class ExpandActivity extends AppCompatActivity {
   protected void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_expand);
+
     getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     getSupportActionBar().setTitle(getClass().getSimpleName());
 
@@ -40,17 +42,12 @@ public class ExpandActivity extends AppCompatActivity {
     recyclerView.setLayoutManager(layoutManager);
     recyclerView.setAdapter(adapter);
 
-    Button clear = (Button) findViewById(R.id.toggle_button);
-    clear.setOnClickListener(new OnClickListener() {
-      @Override
-      public void onClick(View v) {
-        adapter.toggleGroup(makeClassicGenre());
-      }
-    });
+    Button clear = findViewById(R.id.toggle_button);
+    clear.setOnClickListener(v -> adapter.toggleGroup(makeClassicGenre()));
   }
 
   @Override
-  protected void onSaveInstanceState(Bundle outState) {
+  protected void onSaveInstanceState(@NonNull Bundle outState) {
     super.onSaveInstanceState(outState);
     adapter.onSaveInstanceState(outState);
   }

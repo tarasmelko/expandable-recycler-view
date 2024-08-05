@@ -2,9 +2,12 @@ package com.thoughtbot.expandablerecyclerview.sample;
 
 import android.app.Application;
 import android.content.Context;
+
 import com.thoughtbot.expandablerecyclerview.models.ExpandableListPosition;
 import com.thoughtbot.expandablerecyclerview.sample.multitype.MultiTypeGenreAdapter;
+
 import java.util.List;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -21,50 +24,48 @@ import static junit.framework.Assert.assertTrue;
 /**
  * Unit test for MultiTypeGenreAdapter
  */
-
 @RunWith(RobolectricTestRunner.class)
-@Config(constants = BuildConfig.class, sdk = 21)
 public class MultiTypeGenreAdapterTest {
 
-  private Context context;
-  private List<Genre> groups;
+    private Context context;
+    private List<Genre> groups;
 
-  @Before
-  public void setUp() throws Exception {
-    MockitoAnnotations.initMocks(this);
-    Application application = RuntimeEnvironment.application;
-    assertNotNull(application);
+    @Before
+    public void setUp() throws Exception {
+        MockitoAnnotations.initMocks(this);
+        Application application = RuntimeEnvironment.application;
+        assertNotNull(application);
 
-    context = application;
-    groups = GenreDataFactory.makeGenres();
-  }
+        context = application;
+        groups = GenreDataFactory.makeGenres();
+    }
 
-  @Test
-  public void test_getItemViewType() {
-    MultiTypeGenreAdapter adapter = new MultiTypeGenreAdapter(groups);
+    @Test
+    public void test_getItemViewType() {
+        MultiTypeGenreAdapter adapter = new MultiTypeGenreAdapter(groups);
 
-    //initial state
-    int initialExpected = ExpandableListPosition.GROUP;
-    int initialActual = adapter.getItemViewType(3);
+        //initial state
+        int initialExpected = ExpandableListPosition.GROUP;
+        int initialActual = adapter.getItemViewType(3);
 
-    assertEquals(initialExpected, initialActual);
+        assertEquals(initialExpected, initialActual);
 
-    //expand first group
-    adapter.toggleGroup(0);
-    int newExpected = MultiTypeGenreAdapter.ARTIST_VIEW_TYPE;
-    int newActual = adapter.getItemViewType(3);
+        //expand first group
+        adapter.toggleGroup(0);
+        int newExpected = MultiTypeGenreAdapter.ARTIST_VIEW_TYPE;
+        int newActual = adapter.getItemViewType(3);
 
-    assertEquals(newExpected, newActual);
-  }
+        assertEquals(newExpected, newActual);
+    }
 
-  @Test
-  public void test_isChild() {
-    MultiTypeGenreAdapter adapter = new MultiTypeGenreAdapter(groups);
+    @Test
+    public void test_isChild() {
+        MultiTypeGenreAdapter adapter = new MultiTypeGenreAdapter(groups);
 
-    int validChildViewType = MultiTypeGenreAdapter.ARTIST_VIEW_TYPE;
-    int inValidChildViewType = ExpandableListPosition.GROUP;
+        int validChildViewType = MultiTypeGenreAdapter.ARTIST_VIEW_TYPE;
+        int inValidChildViewType = ExpandableListPosition.GROUP;
 
-    assertTrue(adapter.isChild(validChildViewType));
-    assertFalse(adapter.isChild(inValidChildViewType));
-  }
+        assertTrue(adapter.isChild(validChildViewType));
+        assertFalse(adapter.isChild(inValidChildViewType));
+    }
 }

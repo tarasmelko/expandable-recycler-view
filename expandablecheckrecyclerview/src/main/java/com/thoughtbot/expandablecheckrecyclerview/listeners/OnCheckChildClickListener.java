@@ -1,7 +1,7 @@
 package com.thoughtbot.expandablecheckrecyclerview.listeners;
 
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
+
 import com.thoughtbot.expandablecheckrecyclerview.CheckableChildRecyclerViewAdapter;
 import com.thoughtbot.expandablecheckrecyclerview.models.CheckedExpandableGroup;
 import com.thoughtbot.expandablecheckrecyclerview.viewholders.CheckableChildViewHolder;

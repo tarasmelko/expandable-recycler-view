@@ -2,6 +2,7 @@ package com.thoughtbot.expandablerecyclerview.models;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,6 +10,7 @@ import java.util.List;
  * The backing data object for an {@link ExpandableGroup}
  */
 public class ExpandableGroup<T extends Parcelable> implements Parcelable {
+
   private String title;
   private List<T> items;
 

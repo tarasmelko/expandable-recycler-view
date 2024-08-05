@@ -1,1 +1,5 @@
-<manifest package="com.thoughtbot.expandablerecyclerview" />
+<?xml version="1.0" encoding="utf-8"?>
+<manifest>
+
+    <application />
+</manifest>

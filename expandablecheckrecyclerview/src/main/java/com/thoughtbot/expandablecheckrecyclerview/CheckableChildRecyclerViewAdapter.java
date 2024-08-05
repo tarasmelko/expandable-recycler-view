@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
+
 import com.thoughtbot.expandablecheckrecyclerview.listeners.OnCheckChildClickListener;
 import com.thoughtbot.expandablecheckrecyclerview.listeners.OnChildCheckChangedListener;
 import com.thoughtbot.expandablecheckrecyclerview.listeners.OnChildrenCheckStateChangedListener;
@@ -13,12 +14,13 @@ import com.thoughtbot.expandablerecyclerview.ExpandableRecyclerViewAdapter;
 import com.thoughtbot.expandablerecyclerview.models.ExpandableGroup;
 import com.thoughtbot.expandablerecyclerview.models.ExpandableListPosition;
 import com.thoughtbot.expandablerecyclerview.viewholders.GroupViewHolder;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public abstract class CheckableChildRecyclerViewAdapter<GVH extends GroupViewHolder, CCVH extends CheckableChildViewHolder>
-    extends ExpandableRecyclerViewAdapter<GVH, CCVH>
-    implements OnChildCheckChangedListener, OnChildrenCheckStateChangedListener {
+        extends ExpandableRecyclerViewAdapter<GVH, CCVH>
+        implements OnChildCheckChangedListener, OnChildrenCheckStateChangedListener {
 
   private static final String CHECKED_STATE_MAP = "child_check_controller_checked_state_map";
 
@@ -39,7 +41,7 @@ public abstract class CheckableChildRecyclerViewAdapter<GVH extends GroupViewHol
 
   @Override
   public void onBindChildViewHolder(CCVH holder, int flatPosition, ExpandableGroup group,
-      int childIndex) {
+                                    int childIndex) {
     ExpandableListPosition listPosition = expandableList.getUnflattenedPosition(flatPosition);
     holder.onBindViewHolder(flatPosition, childCheckController.isChildChecked(listPosition));
     onBindCheckChildViewHolder(holder, flatPosition, (CheckedExpandableGroup) group, childIndex);
@@ -51,7 +53,7 @@ public abstract class CheckableChildRecyclerViewAdapter<GVH extends GroupViewHol
     childCheckController.onChildCheckChanged(checked, listPos);
     if (childClickListener != null) {
       childClickListener.onCheckChildCLick(view, checked,
-          (CheckedExpandableGroup) expandableList.getExpandableGroup(listPos), listPos.childPos);
+              (CheckedExpandableGroup) expandableList.getExpandableGroup(listPos), listPos.childPos);
     }
   }
 
@@ -74,7 +76,7 @@ public abstract class CheckableChildRecyclerViewAdapter<GVH extends GroupViewHol
    * instance state bundle to be used in {@link #onRestoreInstanceState(Bundle)}.
    *
    * @param outState The {@code Bundle} into which to store the
-   * chekced state map
+   *                 chekced state map
    */
   @Override
   public void onSaveInstanceState(Bundle outState) {
@@ -92,7 +94,7 @@ public abstract class CheckableChildRecyclerViewAdapter<GVH extends GroupViewHol
    * <p>
    *
    * @param savedInstanceState The {@code Bundle} from which the expanded
-   * state map is loaded
+   *                           state map is loaded
    */
   @Override
   public void onRestoreInstanceState(Bundle savedInstanceState) {
@@ -106,8 +108,8 @@ public abstract class CheckableChildRecyclerViewAdapter<GVH extends GroupViewHol
   /**
    * Manually (programmatically) update the check state of a child
    *
-   * @param checked the desired check state, true will check the item, false will uncheck it if
-   * possible
+   * @param checked    the desired check state, true will check the item, false will uncheck it if
+   *                   possible
    * @param groupIndex the index of the {@code ExpandableGroup} within {@code getGroups()}
    * @param childIndex the index of the child within it's group
    */
@@ -115,7 +117,7 @@ public abstract class CheckableChildRecyclerViewAdapter<GVH extends GroupViewHol
     childCheckController.checkChild(checked, groupIndex, childIndex);
     if (childClickListener != null) {
       childClickListener.onCheckChildCLick(null, checked,
-          (CheckedExpandableGroup) expandableList.groups.get(groupIndex), childIndex);
+              (CheckedExpandableGroup) expandableList.groups.get(groupIndex), childIndex);
     }
   }
 
@@ -148,11 +150,11 @@ public abstract class CheckableChildRecyclerViewAdapter<GVH extends GroupViewHol
    * <p>
    * Bind data to the {@link CCVH} here.
    *
-   * @param holder The {@code CCVH} to bind data to
+   * @param holder       The {@code CCVH} to bind data to
    * @param flatPosition the flat position (raw index) in the list at which to bind the child
-   * @param group The {@link CheckedExpandableGroup} that the the child list item belongs to
-   * @param childIndex the index of this child within it's {@link CheckedExpandableGroup}
+   * @param group        The {@link CheckedExpandableGroup} that the the child list item belongs to
+   * @param childIndex   the index of this child within it's {@link CheckedExpandableGroup}
    */
   public abstract void onBindCheckChildViewHolder(CCVH holder, int flatPosition,
-      CheckedExpandableGroup group, int childIndex);
+                                                  CheckedExpandableGroup group, int childIndex);
 }

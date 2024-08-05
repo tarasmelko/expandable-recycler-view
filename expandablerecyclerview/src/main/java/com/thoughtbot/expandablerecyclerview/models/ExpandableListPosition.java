@@ -1,6 +1,7 @@
 package com.thoughtbot.expandablerecyclerview.models;
 
 import android.widget.ExpandableListView;
+
 import java.util.ArrayList;
 
 /**

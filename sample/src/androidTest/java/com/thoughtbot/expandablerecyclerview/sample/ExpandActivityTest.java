@@ -1,50 +1,48 @@
 package com.thoughtbot.expandablerecyclerview.sample;
 
-import android.support.test.espresso.contrib.RecyclerViewActions;
-import android.support.test.rule.ActivityTestRule;
-import android.support.test.runner.AndroidJUnit4;
-import android.support.v7.widget.RecyclerView;
-import com.thoughtbot.expandablerecyclerview.sample.expand.GenreAdapter;
+import static androidx.test.espresso.action.ViewActions.click;
+import static junit.framework.Assert.assertTrue;
+
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.test.espresso.Espresso;
+import androidx.test.espresso.contrib.RecyclerViewActions;
+import androidx.test.espresso.matcher.ViewMatchers;
+import androidx.test.rule.ActivityTestRule;
+import androidx.test.runner.AndroidJUnit4;
+
 import com.thoughtbot.expandablerecyclerview.sample.expand.ExpandActivity;
+import com.thoughtbot.expandablerecyclerview.sample.expand.GenreAdapter;
+
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import static android.support.test.espresso.Espresso.onView;
-import static android.support.test.espresso.action.ViewActions.click;
-import static android.support.test.espresso.matcher.ViewMatchers.withId;
-import static junit.framework.Assert.assertTrue;
-
 @RunWith(AndroidJUnit4.class)
 public class ExpandActivityTest {
 
-  @Rule
-  public ActivityTestRule<ExpandActivity> activityRule =
-      new ActivityTestRule<>(ExpandActivity.class);
+    @Rule
+    public ActivityTestRule<ExpandActivity> activityRule = new ActivityTestRule<>(ExpandActivity.class);
 
-  private RecyclerView recyclerView;
-  private GenreAdapter adapter;
+    private RecyclerView recyclerView;
+    private GenreAdapter adapter;
 
-  @Before
-  public void setUp() {
-    recyclerView =
-        (RecyclerView) activityRule.getActivity().findViewById(R.id.recycler_view);
+    @Before
+    public void setUp() {
+        recyclerView = (RecyclerView) activityRule.getActivity().findViewById(R.id.recycler_view);
 
-    adapter = activityRule.getActivity().adapter;
-  }
+        adapter = activityRule.getActivity().adapter;
+    }
 
-  @Test
-  public void testClickGroup() {
-    onView(withId(R.id.recycler_view))
-        .perform(RecyclerViewActions.actionOnItemAtPosition(0, click()));
+    @Test
+    public void testClickGroup() {
+        Espresso.onView(ViewMatchers.withId(R.id.recycler_view)).perform(RecyclerViewActions.actionOnItemAtPosition(0, click()));
 
-    assertTrue(adapter.isGroupExpanded(0));
-  }
+        assertTrue(adapter.isGroupExpanded(0));
+    }
 
-  @Test
-  public void testClickItem() {
-    onView(withId(R.id.recycler_view))
-        .perform(RecyclerViewActions.actionOnItemAtPosition(1, click()));
-  }
+    @Test
+    public void testClickItem() {
+        Espresso.onView(ViewMatchers.withId(R.id.recycler_view)).perform(RecyclerViewActions.actionOnItemAtPosition(1, click()));
+    }
 }
